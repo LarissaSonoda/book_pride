@@ -5,13 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Pride</title>
+    <link rel="shortcut icon" href="img/logotipo.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/style_home.css">
     <link href='https://fonts.googleapis.com/css?family=Atkinson Hyperlegible' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="header">
         <div class="container">
-            <img src="img/la._pride-removebg-preview.png" alt="">
+            <img src="img/logotipo.png" alt="">
             <ul>
                 <li><a href="">Por que?</a></li>
                 <li><a href="">Valores</a> </li>
@@ -25,7 +27,41 @@
     <div class="banner">
         <img src="img/banner.jpg" alt="">
     </div>
+    <div id="sobre">
+        <div class="container">
+            <img src="img/image 2.png" alt="" style="width: 200px;">
+            <div id="texto">
+                <h1>POR QUE ESTE TEMA?</h1>
+                <p>Etiam fermentum massa id sapien scelerisque facilisis. Nunc augue orci, dignissim ornare porttitor ac, convallis sed lectus. Aliquam vel dignissim tellus. Fusce interdum posuere ante, efficitur dictum nisl. Nulla quis semper tellus. Suspendisse potenti. Nunc tortor nisi, dictum sit amet faucibus vel, aliquam tincidunt enim. Aenean eu pulvinar nulla. Quisque eget mollis lacus. Aliquam facilisis neque ac elementum mollis. Donec ultricies hendrerit faucibus. Suspendisse nec odio aliquet, malesuada quam ut, mattis quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis porta in ex ac sollicitudin.</p>
+            </div>
+        </div>
+    </div>
 
+    <div id="dashboard">
+        <div class="container">
+            <h1>Editoras cadastradas</h1>
+            <div id="grafico">
+                <canvas id="editoras"></canvas>
+            </div>
+            <div id="kpis">
+                <div class="kpi" id="kpi1"></div>
+                <div class="kpi" id="kpi2"></div>
+                <div class="kpi" id="kpi3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="valores">
+        <div class="container">
+            <h1 style="text-align: center; color:#E95F81">VALORES</h1>
+            <div id="cards">
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+            </div>
+        </div>
+    </div>
     
 </body>
 </html>

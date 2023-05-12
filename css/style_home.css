@@ -10,8 +10,8 @@ body{
     background-color: #F2B66C;
 }
 .header img{
-    width: 130px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
 }
 .container{
     width: 85%;
@@ -42,3 +42,36 @@ body{
 .banner img{
     width: 100%;
 }
+#sobre .container{
+    display: flex;
+}
+#sobre{
+    margin-top:5%;
+}
+#sobre .container #texto{
+    margin-left: 5%;
+}
+#sobre .container h1{
+    text-align: center;
+    color: #E95F81;
+    font-weight: bolder;
+}
+
+#dashboard h1{
+    text-align: center;
+    color: #E95F81 ;
+}
+
+#dashboard #kpis{
+    display: flex;
+    justify-content: space-around;
+}
+
+#dashboard #kpis .kpi{
+    width: 250px;
+    height: 190px;
+    border-radius: 20px;
+    border: 1px solid #000;
+    background-color: #D386B3;
+}
+
