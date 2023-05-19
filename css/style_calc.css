@@ -1,0 +1,47 @@
+*{
+    font-family: 'Atkinson Hyperlegible';
+}
+body{
+    margin: 0;
+    background-color: #9C4F97;
+}
+h3 a{
+    text-decoration: none;
+    margin-left: 10%;
+    color: #fff
+}
+#main{
+    width: 100%;
+    height: 90vh;
+    background-color: #9C4F97;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#main .card{
+    margin: 20px;
+    width: 400px;
+    height: 80vh;
+    background-color: #DCB1D2;
+    border-radius: 40px;
+}
+#main img{
+    height: 90vh;
+    width: 300px;
+}
+#result{
+    width: 100%;
+    height: 100vh;
+    background-color: #9C4F97;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+     
+}
+#result #resposta{
+    margin: 20px;
+    width: 400px;
+    height: 80vh;
+    background-color: #DCB1D2;
+    border-radius: 40px;
+}

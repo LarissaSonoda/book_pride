@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>book pride</title>
+    <link rel="shortcut icon" href="../img/logotipo.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Atkinson Hyperlegible' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/style_cadastro.css">
+</head>
+
+<body>
+    <button onclick="voltar()">Voltar</button>
+    <div id="formulario">
+        <div id="inicial">
+            <h1>CADASTRO DE LIVRO</h1>
+            <div id="campo">
+                NOME: <input type="text" id="ipt_nome" style="margin-left: 80px;">
+            </div>
+
+            <div id="campo">
+                AUTOR: <input type="text" id="ipt_autor" style="margin-left: 78px;">
+            </div>
+
+            <div id="campo">
+                EDITORA: <input type="text" id="ipt_editora" style="margin-left: 78px;">
+            </div>
+
+            <div id="campo">
+                SINOPSE: <textarea name="sinopse" id="txt_sinopse" cols="30" rows="10"
+                    style="margin-left: 59px;"></textarea>
+            </div>
+
+            <div id="campo">
+                RECOMENDAÇÃO: <textarea name="recomendacao" id="txt_recomendacao" cols="30" rows="10"></textarea>
+            </div>
+
+            <div id="campo">
+                LINK DA CAPA: <input type="text" id="ipt_linkCapa">
+            </div>
+
+            <button onclick="cadastrar()">Cadastrar</button>
+        </div>
+        <div id="tela2">
+            <h1>AUTOR</h1>
+            <div id="campo">
+                FOTO: <input type="text" id="ipt_fotoAutor" style="margin-left: 80px;">
+            </div>
+            <div id="campo">
+                BIOGRAFIA: <textarea name="sinopse" id="txt_sinopse" cols="30" rows="10"
+                style="margin-left: 59px;"></textarea>
+            </div>
+            <button onclick="cadAutor()">Cadastrar Autor</button>
+        </div>
+
+    </div>
+
+    <div id="main" style="display: none;">
+        <img src="../img/logotipo.png" style="width: 300px; height: 300px;">
+        <h1>CADASTRO CONCLUÍDO</h1>
+        <button onclick="avancar()">Avançar</button>
+    </div>
+</body>
+
+</html>
+<script>
+    function cadastrar() {
+        document.getElementById("tela2").style.display = "block";
+        document.getElementById("inicial").style.display = "none";
+    }
+    function cadAutor(){
+        document.getElementById("main").style.display = "block";
+        document.getElementById("formulario").style.display = "none";
+    }
+    function voltar() {
+        window.location.assign('../home.html');
+    }
+</script>
