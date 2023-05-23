@@ -20,14 +20,16 @@
                 <li><a href="">Dia a Dia</a> </li>
                 <li><a href="">Autoras</a> </li>
                 <li><a href="">Representatividade</a> </li>
-                <li><a href="">Livros</a> </li>
+                <li><a href="livros.html">Livros</a> </li>
+                <div class="underbar"></div>
             </ul>
         </div>
     </div>
+    
     <div class="banner">
         
-        <button>Calculadora</button>
-        <button>Título aleatório</button>
+        <button onclick="calc()">CALCULADORA</button>
+        <button onclick="titRandom()">TÍTULO ALEATÓRIO</button>
     </div>
     <div id="sobre">
         <div class="container">
@@ -93,6 +95,68 @@
             </div>
         </div>
     </div>
-    
+
+    <div id="autoras">
+        <div class="container">
+            <div class="autora" id="elayne">
+                <img src="img/elay.png" alt="">
+                <h2>ELAYNE BAETA</h2>
+                <p>Etiam fermentum massa id sapien scelerisque facilisis. Nunc augue orci, dignissim ornare porttitor ac, convallis sed lectus. Aliquam vel dignissim tellus. </p>
+            </div>
+            <div class="autora" id="clara">
+                <img src="img/clara.png" alt="">
+                <h2>CLARA ALVES</h2>
+                <p>Etiam fermentum massa id sapien scelerisque facilisis. Nunc augue orci, dignissim ornare porttitor ac, convallis sed lectus. Aliquam vel dignissim tellus. </p>
+            </div>
+            <div class="autora" id="raissa">
+                <img src="img/raissa.png" alt="">
+                <h2>RAÍSSA SELVATICCI</h2>
+                <p>Etiam fermentum massa id sapien scelerisque facilisis. Nunc augue orci, dignissim ornare porttitor ac, convallis sed lectus. Aliquam vel dignissim tellus. </p>
+            </div>
+        </div>
+    </div>
+    <div id="btn_inicio">
+        <h4>&uarr;</h4>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="navegar">
+                <div id="navFooter">
+                    <h3 style="color:#F2B66C;"><b>NAVEGAR:</b></h3>
+                    <ul>
+                        <li>Por que?</li>
+                        <li>Valores</li>
+                        <li>Dia a Dia</li>
+                        <li>Autoras</li>
+                        <li>Representatividade</li>
+                        <li>Livros</li>
+                    </ul>
+                </div>
+                
+                <div id="extras">
+                    <h3 style="color:#F2B66C;"><b>EXTRAS:</b></h3>
+                    <li>Calculadora</li>
+                    <li>Título Aleatório</li>
+                </div>
+
+                <div id="redes">
+                    <h3 style="color:#F2B66C;"><b>REDES SOCIAIS:</b></h3>
+                </div>
+            </div>
+            
+            <div id="finalFooter">
+                <h4>FEITO COM AMOR POR LARISSA MIRANDA SONODA <3</h4>
+                <img src="img/logotipo.png" alt="">
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
+<script>
+    function calc(){
+        window.location="calculadora.html";
+    }
+    function titRandom(){
+        window.location = "randomTit.html";
+    }
+</script>
