@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>book pride</title>
+    <link rel="shortcut icon" href="img/logotipo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/style_titRandom.css">
+    <link href='https://fonts.googleapis.com/css?family=Atkinson Hyperlegible' rel='stylesheet'>
+</head>
+
+<body>
+    <h3><a href="index.html"> Voltar</a></h3>
+    <div id="main">
+        <button onclick="sortear()">
+            <img src="img/image 19.png" alt="">
+            <p>SORTEAR</p> 
+        </button>
+        <img src="img/luz1.png">
+    </div>
+    <div id="resultado"><span id="fecha" onclick="fechaCaixa()">X</span></div>
+
+</body>
+
+</html>
+<script>
+    var sorteado = Number(0);
+    function sortear(){
+        var div_resp = document.getElementById("resultado");
+        fetch("/livros/listar").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    alert("Nenhum resultado encontrado.") ;
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    var max = resposta.length;
+                    sorteado = (Math.random()*max).toFixed(0);
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+                        if(i == sorteado){
+                            div_resp.style.display="block";
+                            resultado.innerHTML = `<img src="${publicacao.linkCapa}">`
+                        }
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            //finalizarAguardar();
+        });
+
+    }
+</script>

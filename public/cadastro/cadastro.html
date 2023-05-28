@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>book pride</title>
+    <link rel="shortcut icon" href="../img/logotipo.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Atkinson Hyperlegible' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/style_cadastro.css">
+</head>
+
+<body>
+
+    <div id="vltr">
+        <button onclick="voltar()">Voltar</button>
+    </div>
+    <div id="formulario">
+        <div id="tela1">
+            <h1 style="text-align: center;">CADASTRO DE LIVRO</h1>
+            <div id="campo">
+                NOME: <input type="text" id="ipt_nome" style="margin-left: 80px;">
+            </div>
+
+            <div id="campo">
+                SINOPSE: <textarea name="sinopse" id="txt_sinopse" cols="30" rows="10"
+                    style="margin-left: 59px;"></textarea>
+            </div>
+
+            <div id="campo">
+                LINK DA CAPA: <input type="text" id="ipt_linkCapa">
+            </div>
+
+            <h1 style="text-align: center;">EDITORA</h1>
+            <div id="campo">
+                NOME DA EDITORA: <input type="text" id="ipt_editora" style="margin-left: 78px;">
+            </div>
+            <button onclick="cadLivro()">Avançar</button>
+        </div>
+        <div id="tela2">
+            <h1>AUTOR</h1>
+            <div id="campo">
+                AUTOR: <input type="text" id="ipt_autor" style="margin-left: 78px;">
+            </div>
+            <div id="campo">
+                FOTO: <input type="text" id="ipt_fotoAutor" style="margin-left: 80px;">
+            </div>
+            <button onclick="cadAutor()">Avançar</button>
+        </div>
+
+        <div id="tela3">
+            <h1>RECOMENDAÇÃO</h1>
+            <div id="campo">
+                RECOMENDAÇÃO: <textarea name="recomend" id="txt_recomendacao" cols="30" rows="10"></textarea>
+            </div>
+            <button onclick="cadRecomend()">Cadastrar</button>
+        </div>
+
+    </div>
+
+    <div id="main" style="display: none;">
+        <img src="../img/logotipo.png" style="width: 300px; height: 300px;">
+        <h1>CADASTRO CONCLUÍDO</h1>
+        <button onclick="avancar()">Avançar</button>
+    </div>
+</body>
+
+</html>
+<script src="../js/script.js"></script>
+<script>
+    function cadLivro() {
+        var nomeVar = ipt_nome.value;
+        var capaVar = ipt_linkCapa.value;
+        var sinopseVar = txt_sinopse.value;
+        var editoraVar = ipt_editora.value;
+
+        if (nomeVar.length < 4 || sinopseVar == '' || capaVar == '' || editoraVar=='') {
+            alert("Preencha corretamente os campos");
+            return false
+        }
+        // Enviando o valor da nova input
+        fetch("/livros/cadastrarLivro", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/livros.js
+                nomeServer: nomeVar,
+                capaServer: capaVar,
+                sinopseServer: sinopseVar,
+                editoraServer: editoraVar
+
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                //alert("Cadastro realizado com sucesso! Redirecionando para a tela de livros!");
+                document.getElementById("tela2").style.display = "block";
+                document.getElementById("tela1").style.display = "none";
+                //limparFormulario();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro de livro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            //finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    function cadAutor() {
+        erro = 0;
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var nomeVar = ipt_nome.value;
+        var autorVar = ipt_autor.value;
+        var fotoAutorVar = ipt_fotoAutor.value;
+
+        if (autorVar == '') {
+            alert("Preencha corretamente os campos")
+            erro = 1;
+            return false
+        }
+
+        fetch("/livros/cadastrarAut", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeLivroServer: nomeVar,
+                autorServer: autorVar,
+                fotoAutorServer: fotoAutorVar
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                //alert("Cadastro realizado com sucesso! Redirecionando para a tela de livros!");
+                document.getElementById("tela2").style.display = "none";
+                document.getElementById("tela3").style.display = "block";
+
+                //limparFormulario();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro de autor!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            //finalizarAguardar();
+        });
+        //cadLivro();
+        return false;
+    }
+
+    function cadEdit() {
+        var editoraVar = ipt_editora.value;
+
+        if (editoraVar == '') {
+            alert("Preencha o campo do nome da editora")
+            return false
+        }
+        fetch("/livros/cadastrarEdit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                editoraServer: editoraVar
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                //alert("Cadastro realizado com sucesso! Redirecionando para a tela de livros!");
+                document.getElementById("tela2").style.display = "block";
+                document.getElementById("tela1").style.display = "none";
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro de editora!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            //finalizarAguardar();
+        });
+
+        return false;
+
+    }
+    function cadRecomend() {
+        var nomeVar = ipt_nome.value;
+        var capaVar = ipt_linkCapa.value;
+        var recomendacaoVar = txt_recomendacao.value;
+
+        if (recomendacaoVar == '') {
+            alert("Preencha a recomendação")
+            return false
+        }
+        fetch("/livros/cadastrarRecomend", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeLivroServer: nomeVar,
+                capaLivroServer: capaVar,
+                recomendacaoServer: recomendacaoVar
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                //alert("Cadastro realizado com sucesso! Redirecionando para a tela de livros!");
+                document.getElementById("main").style.display = "block";
+                document.getElementById("tela3").style.display = "none";
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro de recomendação!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            //finalizarAguardar();
+        });
+
+        return false;
+
+    }
+    function avancar(){
+        window.location.assign("../livros.html")
+    }
+</script>
