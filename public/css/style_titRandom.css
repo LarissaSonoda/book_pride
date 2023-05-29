@@ -66,14 +66,23 @@ body {
     left: 15vw;
     right: 15vw;
     text-align: center;
-    /* display: none; */
+    animation-duration: 1s;
+    border-radius: 20px;
+    display: none;
 }
-#resultado span{
+@keyframes showDiv{
+    0% {bottom: -100vh;}
+    100% {bottom: 15vh;}
+    /* 100% {bottom: 50vh;} */
+}
+#resultado button{
     float: right;
-    font-size: 120%;
+    font-size: 100%;
+    text-align: center;
     cursor: pointer;
+    border: none;
     padding: 2%;
-    background-color: #D386B3;
+    background-color: rgba(0, 0, 0, 0);
     height: 5%;
     width: 5%;
     border-radius: 40px;

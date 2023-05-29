@@ -32,16 +32,18 @@ function cadLivAut(nomeLivro,nomeAutor){
     console.log("Executando a instrução SQL: \n" + instrucao_2);
     return database.executar(instrucao_2);
 }
-function cadEdit(nomeEditora) {
+function cadEdit(nomeEditora, nomeLivro, capa) {
     var instrucao_2 = `INSERT INTO Editora (nomeEditora)
         SELECT * FROM (SELECT '${nomeEditora}') AS tmp
         WHERE NOT EXISTS (
             SELECT nomeEditora FROM Editora WHERE nomeEditora = '${nomeEditora}'
         ) LIMIT 1;`;
     console.log("Executando a instrução SQL: \n" + instrucao_2);
+    
+    var instrucao_3 = `UPDATE Livro SET fkEditora = (SELECT idEditora FROM Editora WHERE nomeEditora='${nomeEditora}') WHERE idLivro=(SELECT idLivro as id FROM (SELECT idLivro FROM Livro WHERE nome='${nomeLivro}' AND linkCapa='${capa}') as LR)`;
+    console.log("Executando a instrução SQL: \n" + instrucao_3);
 
-
-    return database.executar(instrucao_2);
+    return database.executar(instrucao_2), database.executar(instrucao_3);
 }
 function cadRecomendacao(recomendacao, capa, nomeLivro){
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", recomendacao);
@@ -56,21 +58,13 @@ function cadastrarLivro(nome, link, Sinopse, nomeEditora) {
     //cadRecomendacao(recomendacao);
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, link, Sinopse, nomeEditora);
 
-    //     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //     //  e na ordem de inserção dos dados.
-    var instrucao_2 = `INSERT INTO Editora (nomeEditora)
-        SELECT * FROM (SELECT '${nomeEditora}') AS tmp
-        WHERE NOT EXISTS (
-            SELECT nomeEditora FROM Editora WHERE nomeEditora = '${nomeEditora}'
-        ) LIMIT 1;`;
-        console.log("Executando a instrução SQL: \n" + instrucao_2);
     var instrucao = `
         INSERT INTO Livro (idLivro, nome, linkCapa, Sinopse, fkEditora) VALUES (NULL, '${nome}', '${link}', '${Sinopse}', (SELECT idEditora FROM Editora WHERE nomeEditora = '${nomeEditora}'));`;
     
     console.log("Executando a instrução SQL: \n" + instrucao);
 
 
-    return database.executar(instrucao_2),database.executar(instrucao);
+    return database.executar(instrucao), cadEdit(nomeEditora, nome, link);
 }
 
 

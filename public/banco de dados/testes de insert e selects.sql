@@ -2,9 +2,9 @@ use bookPride;
 
 -- INSERIR A EDITORA CASO NÃO EXISTA
 INSERT INTO Editora (nomeEditora)
-SELECT * FROM (SELECT 'Galera') AS tmp
+SELECT * FROM (SELECT 'Arqueiro') AS tmp
 WHERE NOT EXISTS (
-    SELECT nomeEditora FROM Editora WHERE nomeEditora = 'Galera'
+    SELECT nomeEditora FROM Editora WHERE nomeEditora = 'Arqueiro'
 ) LIMIT 1;
 
 SELECT * FROM Editora;
@@ -27,7 +27,7 @@ INSERT INTO Livro (nome, linkCapa, Sinopse, fkEditora) VALUES ('oxe, baby', 'htt
 SELECT * FROM Livro;
 INSERT INTO Recomendacao VALUES (null, 'Conectadas é simplesmente um livro incrível com o cenário perfeito: O Centro de São Paulo');
 SELECT * FROM recomendacao;
-UPDATE Livro SET fkRecomendacao=4 WHERE idLivro=1;
+UPDATE Livro SET fkEditora=6 WHERE idLivro=11;
 SELECT L.*, A.linkFoto, A.nomeAutor, E.nomeEditora, R.recomendacao FROM Livro as L 
 			INNER JOIN LivroAutor AS LA ON L.idLivro=LA.fkLivro 
             INNER JOIN Autor AS A ON LA.fkAutor=A.idAutor

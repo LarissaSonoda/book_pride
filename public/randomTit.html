@@ -20,7 +20,7 @@
         </button>
         <img src="img/luz1.png">
     </div>
-    <div id="resultado"><span id="fecha" onclick="fechaCaixa()">X</span></div>
+    <div id="resultado"></div>
 
 </body>
 
@@ -29,13 +29,18 @@
     var sorteado = Number(0);
     function sortear(){
         var div_resp = document.getElementById("resultado");
+        var div_main = document.getElementById("main");
+        div_main.style="filter: blur(8px);";
+        div_resp.style="animation-name: showDiv";
+        div_resp.innerHTML = `<button id="fecha" onclick="fechaCaixa()">X</button>`;
+
         fetch("/livros/listar").then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     alert("Nenhum resultado encontrado.") ;
                     throw "Nenhum resultado encontrado!!";
                 }
-
+                
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
                     var max = resposta.length;
@@ -44,7 +49,10 @@
                         var publicacao = resposta[i];
                         if(i == sorteado){
                             div_resp.style.display="block";
-                            resultado.innerHTML = `<img src="${publicacao.linkCapa}">`
+                            //div_resp.style.animation="fadeIn 2s";
+                            resultado.innerHTML += `<img src="${publicacao.linkCapa}" style="width: 160px; height: 230px;">
+                            <h2 style="color: #EB3455;"><b>${(publicacao.nome).toUpperCase()}</b></h2>
+                            <p>${(publicacao.nomeAutor).toUpperCase()}</p>`
                         }
                     }
                 });
@@ -56,5 +64,13 @@
             //finalizarAguardar();
         });
 
+    }
+
+    function fechaCaixa(){
+        var resp = document.getElementById("resultado");
+        resp.innerHTML = '';
+        resp.style.display="none";
+        var div_main = document.getElementById("main");
+        div_main.style="filter: blur(0px);";
     }
 </script>
