@@ -34,3 +34,26 @@ SELECT L.*, A.linkFoto, A.nomeAutor, E.nomeEditora, R.recomendacao FROM Livro as
 			INNER JOIN Editora AS E ON E.idEditora=L.fkEditora
             INNER JOIN Recomendacao as R ON L.fkRecomendacao=R.idRecomendacao;
 
+SELECT * FROM Livro;
+INSERT INTO Editora VALUES (null, 'Abril');
+SELECT count(L.idLivro) AS Editora, E.nomeEditora, E.idEditora FROM Livro as L 
+			INNER JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora;
+            
+-- descobrir a editora com mais livros vendidos
+SELECT max(B.qtde), n.nomeEditora FROM (SELECT M.idLivro ,count(L.idLivro) AS qtde FROM Livro as L INNER JOIN Livro as M ON M.idLivro=L.idLivro GROUP BY M.fkEditora)
+ as B JOIN Editora ON ;
+            
+
+SELECT count(K.T) AS Todas ,max(K.qtde) as QTDE, K.nome as NOME FROM (SELECT count(L.idLivro) AS T ,count(L.idLivro) AS qtde, E.nomeEditora as nome FROM Livro as L 
+			RIGHT OUTER JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora) as K WHERE K.nome=(SELECT B.nomeEditora as editora FROM Editora AS B 
+            WHERE (SELECT max(K.T) AS ble FROM Livro as Y LIMIT 1) = K.QTDE) GROUP BY K.nome LIMIT 1;
+            
+-- EDITORA COM MENOS LIVROS
+SELECT min(K.qtde) as QTDE, min(K.nome) as NOME FROM (SELECT count(L.idLivro) AS qtde, E.nomeEditora as nome FROM Livro as L 
+			INNER JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora) as K;
+            
+SELECT max(M.Qtde), M.fk AS 'MaisFamosa' FROM (SELECT count(L.idLivro) AS 'Qtde' , E.nomeEditora as 'nome', L.fkEditora as 'fk' FROM Livro as L 
+			INNER JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora) as M GROUP BY M.fk LIMIT 1;
+
+SELECT min(M.Qtde), EM.nomeEditora AS 'MaisFamosa' FROM (SELECT count(L.idLivro) AS 'Qtde' , E.nomeEditora as 'nome', L.fkEditora as 'idEdit' FROM Livro as L 
+			RIGHT JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora) as M RIGHT JOIN Editora AS EM ON M.idEdit=EM.idEditora GROUP BY EM.idEditora;

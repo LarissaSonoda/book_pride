@@ -48,9 +48,9 @@
                 <canvas id="editoras"></canvas>
             </div>
             <div id="kpis">
-                <div class="kpi" id="kpi1"></div>
-                <div class="kpi" id="kpi2"></div>
-                <div class="kpi" id="kpi3"></div>
+                
+                <!-- <div class="kpi" id="kpi2"></div>
+                <div class="kpi" id="kpi3"></div> -->
             </div>
         </div>
     </div>
@@ -155,11 +155,43 @@
     </footer>
 </body>
 </html>
+<script src="js/index.js"></script>
 <script>
+    var kpis = document.getElementById("kpis");
     function calc(){
         window.location="calculadora.html";
     }
     function titRandom(){
         window.location = "randomTit.html";
+    }
+
+    window.onload = function getMaiorEdit(){
+        fetch("/livros/maiorEdit").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    alert("Nenhum resultado encontrado.") ;
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    
+                    kpis.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        kpis.innerHTML += `<div class="kpi" id="kpi1" style="text-align: center; padding: 20px;">
+                        <h2 style="font-weight: 200;">Editora com mais livros cadastrados</h2>
+                        <h2><b style="font-weight: 900;"><p> ${publicacao.NOME}</p></b></h2>
+                        </div>`
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
     }
 </script>

@@ -12,6 +12,35 @@ function listar() {
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+function listarEdit() {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    var instrucao = `
+    SELECT count(L.idLivro) AS 'Qtde', E.nomeEditora FROM Livro as L 
+			RIGHT JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+
+function maiorEdit() {
+    console.log("ACESSEI O LIVROS MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function maiorEdit()");
+    var instrucao = `
+    SELECT max(K.qtde) as QTDE, max(K.nome) as NOME FROM (SELECT count(L.idLivro) AS qtde, E.nomeEditora as nome FROM Livro as L 
+			INNER JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora) as K;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+function menorEdit() {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    var instrucao = `
+    SELECT min(K.qtde) as QTDE, min(K.nome) as NOME FROM (SELECT count(L.idLivro) AS qtde, E.nomeEditora as nome FROM Livro as L 
+			RIGHT JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora) as K;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
 function cadAut(nomeAutor, linkFoto, nomeLivro) {
     var instrucao_1 = `
@@ -71,7 +100,10 @@ function cadastrarLivro(nome, link, Sinopse, nomeEditora) {
 module.exports = {
     cadastrarLivro,
     cadRecomendacao,
+    maiorEdit,
+    menorEdit,
     cadAut,
     cadEdit,
     listar,
+    listarEdit
 };
