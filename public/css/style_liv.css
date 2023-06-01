@@ -110,7 +110,9 @@ body {
     backface-visibility: hidden;
 }
 
-
+#livro{
+    cursor: pointer;
+}
 
 
 #sinopse {
@@ -122,4 +124,19 @@ body {
 #sinopse h2 {
     color: #EB3455;
     font-weight: bolder;
+}
+#btn_verMais{
+    color: #fff;
+    width: 200px;
+    background-color: #EB3455;
+    box-shadow:  2px 2px 0px 0px #000;
+    border: none;
+    padding: 2%;
+    border-radius: 15px;
+    font-size: medium;
+    font-weight: 200;
+}
+a{
+    text-decoration: none;
+    color: #fff;
 }

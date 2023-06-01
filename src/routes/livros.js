@@ -9,12 +9,11 @@ router.get("/listar", function (req, res) {
 router.get("/listarEdit", function (req, res) {
     livrosController.listarEdit(req, res);
 });
-
-router.get("/menorEdit", function (req, res) {
-    livrosController.menorEdit(req, res);
+router.get("/listarAutoras", function (req, res) {
+    livrosController.listarAuts(req, res);
 });
-router.get("/maiorEdit", function (req, res) {
-    livrosController.maiorEdit(req, res);
+router.get("/listarLivById/:idLivro", function (req, res) {
+    livrosController.listLivById(req, res);
 });
 
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
@@ -24,6 +23,10 @@ router.post("/cadastrarLivro", function (req, res) {
 
 router.post("/cadastrarAut", function (req, res) {
     livrosController.cadAut(req, res);
+})
+
+router.post("/cadastrarAutLiv", function (req, res) {
+    livrosController.cadAutLiv(req, res);
 })
 
 router.post("/cadastrarEdit", function (req, res) {

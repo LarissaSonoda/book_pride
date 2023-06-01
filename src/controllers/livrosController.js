@@ -39,9 +39,8 @@ function listarEdit(req, res) {
             }
         );
 }
-
-function maiorEdit(req, res) {
-    livrosModel.maiorEdit()
+function listarAuts(req, res) {
+    livrosModel.listarAuts()
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -57,8 +56,12 @@ function maiorEdit(req, res) {
         );
 }
 
-function menorEdit(req, res) {
-    livrosModel.menorEdit()
+function listLivById(req, res){
+    var id = req.params.idLivro;
+    if (id == undefined) {
+        res.status(400).send("Seu id de Livro está undefined!");
+    }else{
+    livrosModel.listLivroById(id)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -72,7 +75,10 @@ function menorEdit(req, res) {
                 res.status(500).json(erro.sqlMessage);
             }
         );
+    }
 }
+
+
 function cadastrarLivro(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
@@ -171,6 +177,32 @@ function cadAut(req, res) {
             );
     }
 }
+
+function cadAutLiv(req, res) {
+    var livro = req.body.nomeLivroServer;
+    var autor = req.body.autorServer;
+    if (autor == undefined) {
+        res.status(400).send("Seu autor está undefined!");
+    } else if(livro == undefined){
+        res.status(400).send("O livro está undefined");   
+    }else {
+        livrosModel.cadLivAut(livro, autor)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
 function cadEdit(req, res) {
     var editora = req.body.editoraServer;
     if (editora == undefined) {
@@ -198,9 +230,10 @@ module.exports = {
     cadastrarLivro,
     listar,
     listarEdit,
-    maiorEdit,
-    menorEdit,
+    listarAuts,
+    listLivById,
     cadRecomend,
+    cadAutLiv,
     cadAut,
     cadEdit,
     testar

@@ -34,8 +34,9 @@ CREATE TABLE LivroAutor(
     FOREIGN KEY (fkLivro) REFERENCES Livro(idLivro),
     FOREIGN KEY (fkAutor) REFERENCES Autor(idAutor)
 );
-/*CREATE TABLE Comentario(
-	idComentario int primary key auto_increment,
-    comentario varchar(400)
-);*/
+
+SELECT * FROM Autor;
+SELECT * FROM LivroAutor;
+SELECT * FROM Livro;
+SELECT * FROM Editora;
 

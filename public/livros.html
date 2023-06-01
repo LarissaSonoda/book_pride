@@ -21,7 +21,7 @@
                 <li><a href="index.html#valores">Valores</a> </li>
                 <li><a href="index.html#dia_a_dia">Dia a Dia</a> </li>
                 <li><a href="index.html#autoras">Autoras</a> </li>
-                <li><a href="">Representatividade</a> </li>
+                <li><a href="index.html#dashboard">Representatividade</a> </li>
                 <li><a href="livros.html">Livros</a> </li>
                 <div class="underbar"></div>
             </ul>
@@ -40,23 +40,24 @@
                 <div id="navFooter">
                     <h3 style="color:#F2B66C;"><b>NAVEGAR:</b></h3>
                     <ul>
-                        <li>Por que?</li>
-                        <li>Valores</li>
-                        <li>Dia a Dia</li>
-                        <li>Autoras</li>
-                        <li>Representatividade</li>
-                        <li>Livros</li>
+                        <li><a href="index.html#sobre"> Por que?</a></li>
+                        <li><a href="index.html#valores">Valores</a></li>
+                        <li><a href="index.html#dia_a_dia">Dia a Dia</a></li>
+                        <li><a href="index.html#autoras">Autoras</a></li>
+                        <li><a href="index.html#dashboard">Representatividade</a></li>
+                        <li><a href="livros.html">Livros</a></li>
                     </ul>
                 </div>
                 
                 <div id="extras">
                     <h3 style="color:#F2B66C;"><b>EXTRAS:</b></h3>
-                    <li>Calculadora</li>
-                    <li>Título Aleatório</li>
+                    <li><a href="calculadora.html">Calculadora</a></li>
+                    <li><a href="randomTit.html">Título Aleatório</a></li>
                 </div>
 
                 <div id="redes">
                     <h3 style="color:#F2B66C;"><b>REDES SOCIAIS:</b></h3>
+                    <a href="https://www.instagram.com/lariisonoda/"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" style="width: 80px; height: 80px;"></a>
                 </div>
             </div>
             
@@ -88,7 +89,7 @@
                     for (let i = 0; i < resposta.length; i++) {
                         var publicacao = resposta[i];
 
-                        linha.innerHTML += `<div id="livro">
+                        linha.innerHTML += `<div id="livro" onclick="verLivro(${publicacao.idLivro})">
                 <div class="flip-container">
                     <div class="flipper">
                         <div class="front">
@@ -106,7 +107,7 @@
                     <h3 style="color: #EB3455;">${(publicacao.nomeAutor).toUpperCase()}<h3>
                     <h4>Editora: ${publicacao.nomeEditora}</h4>
                     <p>${publicacao.Sinopse}</p>
-                    <p><span style="color: #EB3455;">Recomendação: </span>${publicacao.recomendacao}</p>
+                    <button id="btn_verMais">Clique para ver a recomendação</button>
                 </div>
             </div>`
                     }
@@ -117,5 +118,10 @@
         }).catch(function (resposta) {
             console.error(resposta);
         });
+    }
+
+    function verLivro(idLivro){
+        window.location="livro.html";
+        sessionStorage.ID_LIVRO = idLivro;
     }
 </script>

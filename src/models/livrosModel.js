@@ -22,6 +22,29 @@ function listarEdit() {
     return database.executar(instrucao);
 }
 
+function listLivroById(idLivro) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    var instrucao = `
+    SELECT L.*, E.nomeEditora, A.nomeAutor, R.recomendacao FROM Livro AS L JOIN Editora AS E ON L.fkEditora=E.idEditora 
+            JOIN Recomendacao AS R ON L.fkRecomendacao=R.idRecomendacao
+			JOIN LivroAutor as LA ON LA.fkLivro=L.idLivro
+            JOIN Autor AS A ON LA.fkAutor=A.idAutor AND L.idLivro=${idLivro};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function listarAuts() {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    var instrucao = `
+    SELECT count(L.idLivro) as qtdeLiv, A.nomeAutor FROM Livro AS L INNER JOIN
+	LivroAutor AS LA ON L.idLivro=LA.fkLivro JOIN 
+    Autor AS A ON A.idAutor=LA.fkAutor GROUP BY A.idAutor;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 
 function maiorEdit() {
     console.log("ACESSEI O LIVROS MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function maiorEdit()");
@@ -42,7 +65,7 @@ function menorEdit() {
     return database.executar(instrucao);
 }
 
-function cadAut(nomeAutor, linkFoto, nomeLivro) {
+function cadAut(nomeAutor, linkFoto) {
     var instrucao_1 = `
     INSERT INTO Autor (nomeAutor, linkFoto)
     SELECT * FROM (SELECT '${nomeAutor}', '${linkFoto}') AS tmp
@@ -54,7 +77,7 @@ function cadAut(nomeAutor, linkFoto, nomeLivro) {
     console.log("Executando a instrução SQL: \n" + instrucao_1);
     
     
-    return database.executar(instrucao_1), cadLivAut(nomeLivro, nomeAutor);
+    return database.executar(instrucao_1);
 }
 function cadLivAut(nomeLivro,nomeAutor){
     var instrucao_2 = `INSERT INTO LivroAutor VALUES ((SELECT idLivro FROM Livro where nome='${nomeLivro}'), (SELECT idAutor FROM Autor WHERE nomeAutor='${nomeAutor}'));`;
@@ -102,7 +125,10 @@ module.exports = {
     cadRecomendacao,
     maiorEdit,
     menorEdit,
+    listLivroById,
+    listarAuts,
     cadAut,
+    cadLivAut,
     cadEdit,
     listar,
     listarEdit

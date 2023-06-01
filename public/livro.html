@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>book pride</title>
+    <link rel="stylesheet" href="css/style_home.css">
+    <link rel="stylesheet" href="css/style_livEsp.css">
+    <link href='https://fonts.googleapis.com/css?family=Atkinson Hyperlegible' rel='stylesheet'>
+</head>
+
+<body onload="carregaLivro(idLivro)">
+    <div class="header">
+        <div class="container">
+            <img src="img/logotipo.png" alt="">
+            <ul>
+                <li><a href="index.html#sobre">Por que?</a></li>
+                <li><a href="index.html#valores">Valores</a> </li>
+                <li><a href="index.html#dia_a_dia">Dia a Dia</a> </li>
+                <li><a href="index.html#autoras">Autoras</a> </li>
+                <li><a href="">Representatividade</a> </li>
+                <li><a href="livros.html">Livros</a> </li>
+                <div class="underbar"></div>
+            </ul>
+        </div>
+    </div>
+
+    <div id="dados">
+        <div id="capa"></div>
+        <div id="titSinR">
+            <div id="titulo"></div>
+            <div id="aut"></div>
+            <div id="edit"></div>
+            <div id="sinopse"></div>
+            <div id="recomend"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="navegar">
+                <div id="navFooter">
+                    <h3 style="color:#F2B66C;"><b>NAVEGAR:</b></h3>
+                    <ul>
+                        <li><a href="index.html#sobre"> Por que?</a></li>
+                        <li><a href="index.html#valores">Valores</a></li>
+                        <li><a href="index.html#dia_a_dia">Dia a Dia</a></li>
+                        <li><a href="index.html#autoras">Autoras</a></li>
+                        <li><a href="index.html#dashboard">Representatividade</a></li>
+                        <li><a href="livros.html">Livros</a></li>
+                    </ul>
+                </div>
+                
+                <div id="extras">
+                    <h3 style="color:#F2B66C;"><b>EXTRAS:</b></h3>
+                    <li><a href="calculadora.html">Calculadora</a></li>
+                    <li><a href="randomTit.html">Título Aleatório</a></li>
+                </div>
+
+                <div id="redes">
+                    <h3 style="color:#F2B66C;"><b>REDES SOCIAIS:</b></h3>
+                    <a href="https://www.instagram.com/lariisonoda/"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" style="width: 80px; height: 80px;"></a>
+                </div>
+            </div>
+            
+            <div id="finalFooter">
+                <h4>FEITO COM AMOR POR LARISSA MIRANDA SONODA <3</h4>
+                <img src="img/logotipo.png" alt="">
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
+<script>
+    var idLivro = sessionStorage.ID_LIVRO;
+    function carregaLivro(id) {
+        fetch(`/livros/listarLivById/${id}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    carregaResult2(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+    function carregaResult2(resultado) {
+        for (var i = 0; i < resultado.length; i++) {
+            var r = resultado[i];
+            capa.innerHTML = `<img src="${r.linkCapa}" style="width: 30vw; height: 40wh">`;
+            titulo.innerHTML = `<h1>${r.nome}</h1>`;
+            aut.innerHTML = `<h2><b style="color: #C31A39">Autor: </b>${r.nomeAutor}</h2>`;
+            edit.innerHTML = `<h2><b style="color: #C31A39">Editora: </b><b>${r.nomeEditora}</b></h2>`;
+            sinopse.innerHTML = `<p><b style="color: #C31A39">Sinopse: </b>${r.Sinopse}</p>`;
+            recomend.innerHTML = `<p><span style="color: #EB3455;">Recomendação: </span>${r.recomendacao}</p>`;
+        }
+    }
+</script>

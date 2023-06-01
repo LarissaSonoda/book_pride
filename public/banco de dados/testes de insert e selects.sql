@@ -38,9 +38,15 @@ SELECT * FROM Livro;
 INSERT INTO Editora VALUES (null, 'Abril');
 SELECT count(L.idLivro) AS Editora, E.nomeEditora, E.idEditora FROM Livro as L 
 			INNER JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora;
-            
+
+
+SELECT Livro.idLivro ,count(L.idLivro) AS qtde FROM Livro JOIN Livro as L GROUP BY Livro.fkEditora;
+
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
+
 -- descobrir a editora com mais livros vendidos
-SELECT max(B.qtde), n.nomeEditora FROM (SELECT M.idLivro ,count(L.idLivro) AS qtde FROM Livro as L INNER JOIN Livro as M ON M.idLivro=L.idLivro GROUP BY M.fkEditora)
+SELECT max(B.qtde), n.nomeEditora FROM (SELECT M.idLivro ,count(L.idLivro) AS qtde FROM Livro as L INNER JOIN Livro as M ON L.idLivro=M.idLivro GROUP BY M.fkEditora)
  as B JOIN Editora ON ;
             
 
@@ -50,10 +56,21 @@ SELECT count(K.T) AS Todas ,max(K.qtde) as QTDE, K.nome as NOME FROM (SELECT cou
             
 -- EDITORA COM MENOS LIVROS
 SELECT min(K.qtde) as QTDE, min(K.nome) as NOME FROM (SELECT count(L.idLivro) AS qtde, E.nomeEditora as nome FROM Livro as L 
-			INNER JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora) as K;
+			right JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora) as K;
             
 SELECT max(M.Qtde), M.fk AS 'MaisFamosa' FROM (SELECT count(L.idLivro) AS 'Qtde' , E.nomeEditora as 'nome', L.fkEditora as 'fk' FROM Livro as L 
 			INNER JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora) as M GROUP BY M.fk LIMIT 1;
 
 SELECT min(M.Qtde), EM.nomeEditora AS 'MaisFamosa' FROM (SELECT count(L.idLivro) AS 'Qtde' , E.nomeEditora as 'nome', L.fkEditora as 'idEdit' FROM Livro as L 
 			RIGHT JOIN Editora AS E ON L.fkEditora=E.idEditora GROUP BY E.idEditora) as M RIGHT JOIN Editora AS EM ON M.idEdit=EM.idEditora GROUP BY EM.idEditora;
+            
+-- SELECT DE UM LIVRO
+SELECT L.*, E.nomeEditora, A.nomeAutor, R.recomendacao FROM Livro AS L JOIN Editora AS E ON L.fkEditora=E.idEditora  
+			JOIN Recomendacao AS R ON L.fkRecomendacao=R.idRecomendacao
+			JOIN LivroAutor as LA ON LA.fkLivro=L.idLivro
+            JOIN Autor AS A ON LA.fkAutor=A.idAutor AND L.idLivro=1;
+            
+-- COUNT DE AUTORAS - PARA NOVA DASHBOARD
+SELECT count(L.idLivro) as qtdeLiv, A.nomeAutor FROM Livro AS L INNER JOIN
+	LivroAutor AS LA ON L.idLivro=LA.fkLivro JOIN 
+    Autor AS A ON A.idAutor=LA.fkAutor GROUP BY A.idAutor;
