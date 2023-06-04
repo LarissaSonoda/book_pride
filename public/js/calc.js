@@ -11,5 +11,5 @@ function ver(){
     i.style.display="none";
     
     resultado.style.display="block";
-    result.innerHTML = `<h2>Você terá que ler cerca de <b>${resultadoDias} minutos por dia</b> para concluir o livro na sua meta</h2>`
+    textores.innerHTML = `<h2>Você terá que ler cerca de <b>${resultadoDias} minutos por dia</b> para concluir o livro na sua meta</h2>`
 }
