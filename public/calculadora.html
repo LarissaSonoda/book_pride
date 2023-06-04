@@ -12,16 +12,27 @@
 <body>
     <h3><a href="index.html"> Voltar</a></h3>
     <div id="main">
-        <div class="card">
-
+        <div class="card" id="inicio">
+            <h3>Quantas páginas tem o seu livro? </h3><input type="number" id="ipt_qtdPag">
+            <h3>Em quantos dias você deseja ler este livro?</h3>
+            <input type="number" id="ipt_qtdDias">
+            <br><br>
+            <button onclick="ver()">Ver</button>
         </div>
         <img src="img/Amity Blight_Designs.png" alt="">        
     </div>
     <div id="result">
-        <img src="img/amity_blight-removebg-preview.png" alt="">
-        <div id="resposta" class="card">
-
+        <div id="res2">
+            <img src="img/amity_blight-removebg-preview.png" style="width: 30vw; height: 50vh;">
+            <h3 id="resposta">
+                aaaaaaa
+            </h3>
+            <button onclick="tentarNov()">Fazer novamente</button>
         </div>
+        <!-- <div id="resposta" class="card">
+
+        </div> -->
     </div>
+    <script src="js/calc.js"></script>
 </body>
 </html>

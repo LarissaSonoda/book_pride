@@ -36,7 +36,7 @@
             <div id="campo">
                 NOME DA EDITORA: <input type="text" id="ipt_editora" style="margin-left: 78px;">
             </div>
-            <button onclick="cadLivro()">Avançar</button>
+            <button onclick="cadEdit()">Avançar</button>
         </div>
         <div id="tela2">
             <h1>AUTOR</h1>
@@ -209,8 +209,9 @@
 
             if (resposta.ok) {
                 //alert("Cadastro realizado com sucesso! Redirecionando para a tela de livros!");
-                document.getElementById("tela2").style.display = "block";
-                document.getElementById("tela1").style.display = "none";
+                cadLivro();
+                //document.getElementById("tela2").style.display = "block";
+                //document.getElementById("tela1").style.display = "none";
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro de editora!");
             }

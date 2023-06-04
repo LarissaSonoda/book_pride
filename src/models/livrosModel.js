@@ -92,10 +92,10 @@ function cadEdit(nomeEditora, nomeLivro, capa) {
         ) LIMIT 1;`;
     console.log("Executando a instrução SQL: \n" + instrucao_2);
     
-    var instrucao_3 = `UPDATE Livro SET fkEditora = (SELECT idEditora FROM Editora WHERE nomeEditora='${nomeEditora}') WHERE idLivro=(SELECT idLivro as id FROM (SELECT idLivro FROM Livro WHERE nome='${nomeLivro}' AND linkCapa='${capa}') as LR)`;
-    console.log("Executando a instrução SQL: \n" + instrucao_3);
+    // var instrucao_3 = `UPDATE Livro SET fkEditora = (SELECT idEditora FROM Editora WHERE nomeEditora='${nomeEditora}') WHERE idLivro=(SELECT idLivro as id FROM (SELECT idLivro FROM Livro WHERE nome='${nomeLivro}' AND linkCapa='${capa}') as LR)`;
+    // console.log("Executando a instrução SQL: \n" + instrucao_3);
 
-    return database.executar(instrucao_2), database.executar(instrucao_3);
+    return database.executar(instrucao_2); //, database.executar(instrucao_3);
 }
 function cadRecomendacao(recomendacao, capa, nomeLivro){
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", recomendacao);
