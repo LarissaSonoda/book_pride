@@ -190,7 +190,8 @@ body {
 
 .card {
     width: 20%;
-    height: 300px;
+    height: fit-content;
+    box-shadow: 3px 3px 0px #462906;
     background-color: #F2B66C;
 }
 
@@ -319,4 +320,8 @@ footer img {
 }
 #btn_inicio h4{
     margin: 0;  
+}
+a{
+    text-decoration: none;
+    color: #fff
 }
